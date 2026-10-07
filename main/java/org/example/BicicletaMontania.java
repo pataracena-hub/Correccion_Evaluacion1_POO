@@ -1,28 +1,28 @@
 package org.example;
 
 public class BicicletaMontania extends Bicicleta {
-    private double cantidadSuspension;
-
-    public BicicletaMontania(String codigoBicicleta, int anoFabricacion, double peso, double cantidadSuspension){
-        super(codigoBicicleta, anoFabricacion, peso);
-        this.cantidadSuspension = cantidadSuspension;
+    private int suspensiones;
+    //Constructor
+    public BicicletaMontania(String codigo, int anioFabricacion, double peso, int suspensiones) {
+        super(codigo, anioFabricacion, peso);
+        this.suspensiones = suspensiones;
+    }
+    //Getters y Setters
+    public int getSuspensiones() {
+        return suspensiones;
     }
 
-    public double getCantidadSuspension() {
-        return cantidadSuspension;
+    public void setSuspensiones(int suspensiones) {
+        this.suspensiones = suspensiones;
     }
-
-    public void setCantidadSuspension(double cantidadSuspension) {
-        this.cantidadSuspension = cantidadSuspension;
-    }
-
+    //Metodos
     @Override
-    public double costoBase(){
-        double costoBase = 30000.0;
-        if(cantidadSuspension > 1){
-            costoBase = (costoBase*1.15);
+    public double calcularCostoMantencion() {
+        double costoBase = 30000;
+        if (suspensiones > 1) {
+            costoBase += costoBase * 0.15; // Incremento del 15% si supera 1 suspensión
         }
         return costoBase;
     }
-
 }
+

@@ -1,24 +1,25 @@
 package org.example;
 
-public class BicicletaElectrica extends Bicicleta {
-    private double autonomiaEnKm;
+public class BicicletaElectrica extends Bicicleta implements ConGarantiaExtendida {
+    private int autonomia;
     private boolean bateriaCertificada;
-    private boolean garantiaExtendida = true;
+    private boolean garantiaExtendidaActiva;
 
-    public BicicletaElectrica(String codigoBicicleta, int anoFabricacion, double peso, double autonomiaEnKm, boolean bateriaCertificada, boolean garantiaExtendida){
-        super(codigoBicicleta, anoFabricacion, peso);
-
-        this.autonomiaEnKm = autonomiaEnKm;
+    // Constructor
+    public BicicletaElectrica(String codigo, int anioFabricacion, double peso, int autonomia, boolean bateriaCertificada) {
+        super(codigo, anioFabricacion, peso);
+        this.autonomia = autonomia;
         this.bateriaCertificada = bateriaCertificada;
-        this.garantiaExtendida = garantiaExtendida;
+        this.garantiaExtendidaActiva = false; // Nace sin garantía, cumple con "marcar una vez creada"
     }
 
-    public double getAutonomiaEnKm() {
-        return autonomiaEnKm;
+    // Getters y Setters
+    public int getAutonomia() {
+        return autonomia;
     }
 
-    public void setAutonomiaEnKm(double autonomiaEnKm) {
-        this.autonomiaEnKm = autonomiaEnKm;
+    public void setAutonomia(int autonomia) {
+        this.autonomia = autonomia;
     }
 
     public boolean isBateriaCertificada() {
@@ -29,22 +30,23 @@ public class BicicletaElectrica extends Bicicleta {
         this.bateriaCertificada = bateriaCertificada;
     }
 
-    public boolean isGarantiaExtendida() {
-        return garantiaExtendida;
-    }
-
-    public void setGarantiaExtendida(boolean garantiaExtendida) {
-        this.garantiaExtendida = garantiaExtendida;
+    //Metodos
+    @Override
+    public boolean isGarantiaExtendidaActiva() {
+        return this.garantiaExtendidaActiva;
     }
 
     @Override
-    public double costoBase(){
-        double costoBase = 45000.0;
-        if(!bateriaCertificada){
-            costoBase = (costoBase*1.25);
+    public void activarGarantiaExtendida() {
+        this.garantiaExtendidaActiva = true;
+    }
+
+    @Override
+    public double calcularCostoMantencion() {
+        double costoBase = 45000;
+        if (!bateriaCertificada) {
+            costoBase += costoBase * 0.25;
         }
         return costoBase;
     }
-
-
 }
